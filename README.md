@@ -6,17 +6,13 @@ This is a library for the HTU21D-F Humidity + Temperature sensor.
 
 These boards use **I2C** to communicate. 2 pins are required to interface.
 
-Written by Limor Fried/Ladyada for Adafruit Industries.  
-BSD license, all text above must be included in any redistribution.
-
 ## Installing this Library
 
-Check out the links above for our tutorials and wiring diagrams. Use the Arduino library manager to install
-
-We also have a great tutorial on Arduino library installation at:
-http://learn.adafruit.com/adafruit-all-about-arduino-libraries-install-use
+https://www.arduino.cc/en/Guide/Libraries
 
 ## Learning Guide and API Documentation
+
+https://github.com/JonasGMorsch/GY-21/blob/master/HTU21D.pdf
 
 ### Learning Guide
 
