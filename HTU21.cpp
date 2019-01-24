@@ -58,10 +58,10 @@ float HTU21::readTemperature(void)
 
     //delay(100); // add delay between request and actual read!
 	
-	while(3 != Wire.requestFrom(HTU21DF_I2CADDR, 3)); // IF THIS GOES, THE CODE GOES DOWN WITH IT
-    /*{
-      delay(10);
-    }*/
+	while(3 != Wire.requestFrom(HTU21DF_I2CADDR, 3)) // IF THIS GOES, THE CODE GOES DOWN WITH IT
+    {
+      delay(0);
+    }
 
 
     /* Read 16 bits of data, dropping the last two status bits. */
@@ -98,8 +98,11 @@ float HTU21::readHumidity(void) {
     /* Wait a bit for the conversion to complete. */
     //delay(50);
 
-	while(3 != Wire.requestFrom(HTU21DF_I2CADDR, 3)); // IF THIS GOES, THE CODE GOES DOWN WITH IT
-		
+	while(3 != Wire.requestFrom(HTU21DF_I2CADDR, 3)) // IF THIS GOES, THE CODE GOES DOWN WITH IT
+    {
+      delay(0);
+    }
+	
     /* Read the conversion results. */
     //uint8_t count = Wire.requestFrom(HTU21DF_I2CADDR, 3);
 
