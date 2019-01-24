@@ -1,0 +1,39 @@
+language: c++
+env:
+  - BD=esp8266:esp8266:nodemcuv2:xtal=80,eesz=4M3M
+  - BD=esp8266:esp8266:d1_mini:xtal=80,eesz=4M3M
+before_install:
+  - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_1.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :1 -ac -screen 0 1280x1024x16"
+  - sleep 3
+  - export DISPLAY=:1.0
+  - wget http://downloads.arduino.cc/arduino-1.8.8-linux64.tar.xz
+  - tar xf arduino-1.8.8-linux64.tar.xz
+  - sudo mv arduino-1.8.8 /usr/local/share/arduino
+  - sudo ln -s /usr/local/share/arduino/arduino /usr/local/bin/arduino
+  - wget https://raw.githubusercontent.com/google/styleguide/gh-pages/cpplint/cpplint.py
+install:
+  - ln -s $PWD /usr/local/share/arduino/libraries/
+  - arduino --pref "boardsmanager.additional.urls=http://arduino.esp8266.com/stable/package_esp8266com_index.json" --save-prefs
+  - arduino --install-boards esp8266:esp8266
+  - arduino --board $BD --save-prefs
+  - arduino --pref "compiler.warning_level=all" --save-prefs
+  - sudo apt-get install jq
+  - sudo pip install pylint
+script:
+  # Check that everything compiles.
+  - arduino --verify --board $BD $PWD/examples/HTU21_test/HTU21_test.ino
+  # Also check the tools programs compile.
+  - (cd tools; make all)
+  # Check for lint issues.
+  - shopt -s nullglob
+  - python cpplint.py --extensions=c,cc,cpp,ino --headers=h,hpp {src,test,tools}/*.{h,c,cc,cpp,hpp,ino} examples/*/*.{h,c,cc,cpp,hpp,ino}
+  - pylint {src,test,tools}/*.py
+  - shopt -u nullglob
+  # Build and run the unit tests.
+  - (cd test; make run)
+  - (cd tools; make run_tests)
+
+notifications:
+  email:
+    on_success: change
+    on_failure: change
