@@ -1,8 +1,8 @@
 #include <Wire.h>
 #include <HTU21.h>
 
-#define SCL D5
-#define SDA D6
+#define SCL 14
+#define SDA 12
 
 // Connect Vin to 3-5VDC
 // Connect GND to ground
