@@ -1,4 +1,4 @@
-# GY-21 Humidity/Temp Sensor for Arduino IDE [![Build Status](https://github.com/JonasGMorsch/GY-21/tree/master)](https://github.com/JonasGMorsch/GY-21)
+# GY-21 Humidity/Temp Sensor for Arduino IDE
 
 ![sensors_1899-00](https://github.com/JonasGMorsch/GY-21/blob/master/GY-21.jpg)
 
