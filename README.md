@@ -1,6 +1,6 @@
 # GY-21 Humidity/Temp Sensor for Arduino IDE [![Build Status](https://travis-ci.org/adafruit/Adafruit_HTU21DF_Library.svg?branch=master)](https://travis-ci.org/adafruit/Adafruit_HTU21DF_Library)
 
-![sensors_1899-00](https://user-images.githubusercontent.com/181073/46350691-b53d1880-c655-11e8-8415-452aec129b44.jpg)
+![sensors_1899-00](https://github.com/JonasGMorsch/GY-21/blob/master/GY-21.jpg)
 
 This is a library for the HTU21D-F Humidity + Temperature sensor.
 
