@@ -1,4 +1,4 @@
-language: c++
+language: c
 env:
   - BD=esp8266:esp8266:nodemcuv2:xtal=80,eesz=4M3M
   - BD=esp8266:esp8266:d1_mini:xtal=80,eesz=4M3M
