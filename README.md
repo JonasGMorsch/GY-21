@@ -17,6 +17,6 @@ https://www.arduino.cc/en/Guide/Libraries
 
 https://github.com/JonasGMorsch/GY-21/blob/master/HTU21.pdf
 
-https://github.com/JonasGMorsch/GY-21/blob/master/HTU21.pdf
-
 https://github.com/JonasGMorsch/GY-21/blob/master/SHT21.pdf
+
+https://github.com/JonasGMorsch/GY-21/blob/master/Si7021.pdf
