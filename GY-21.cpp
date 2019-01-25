@@ -1,11 +1,11 @@
 #include <Wire.h>
-#include "HTU21.h"
+#include "GY-21.h"
 
 /**
 * Constructor for the HTU21DF driver.
  */
  
-HTU21::HTU21()
+GY21::GY21()
 {
     /* Assign default values to internal tracking variables. */
     _last_humidity = 0.0f;
@@ -18,16 +18,16 @@ HTU21::HTU21()
  * @return true (1) if the device was successfully initialised, otherwise
  *         false (0).
  */
-boolean HTU21::begin(int SDA,int SCL)
+boolean GY21::begin(int SDA,int SCL)
 {
     Wire.begin(SDA,SCL);
 
     reset();
 
-    Wire.beginTransmission(HTU21DF_I2CADDR);
-    Wire.write(HTU21DF_READREG);
+    Wire.beginTransmission(GY21_I2CADDR);
+    Wire.write(GY21_READREG);
     Wire.endTransmission();
-    Wire.requestFrom(HTU21DF_I2CADDR, 1);
+    Wire.requestFrom(GY21_I2CADDR, 1);
 	
     return (Wire.read() == 0x2); // after reset should be 0x2
 }
@@ -35,10 +35,10 @@ boolean HTU21::begin(int SDA,int SCL)
 /**
  * Sends a 'reset' request to the HTU21DF, followed by a 15ms delay.
  */
-void HTU21::reset(void)
+void GY21::reset(void)
 {
-    Wire.beginTransmission(HTU21DF_I2CADDR);
-    Wire.write(HTU21DF_RESET);
+    Wire.beginTransmission(GY21_I2CADDR);
+    Wire.write(GY21_RESET);
     Wire.endTransmission();
     delay(15);
 }
@@ -49,18 +49,18 @@ void HTU21::reset(void)
  * @return a single-precision (32-bit) float value indicating the measured
  *         temperature in degrees Celsius.
  */
-float HTU21::readTemperature(void)
+float GY21::GY21_Temperature(void)
 {
     // OK lets ready!
-    Wire.beginTransmission(HTU21DF_I2CADDR);
-    Wire.write(HTU21DF_READTEMP);
+    Wire.beginTransmission(GY21_I2CADDR);
+    Wire.write(GY21_READTEMP);
     Wire.endTransmission();
 
     //delay(100); // add delay between request and actual read!
 	
-	while(3 != Wire.requestFrom(HTU21DF_I2CADDR, 3)) // IF THIS GOES, THE CODE GOES DOWN WITH IT
+	while(3 != Wire.requestFrom(GY21_I2CADDR, 3)) // IF THIS GOES, THE CODE GOES DOWN WITH IT
     {
-      delay(0);
+      delay(0); //same as yield for esp
     }
 
 
@@ -89,18 +89,19 @@ float HTU21::readTemperature(void)
  * @return A single-precision (32-bit) float value indicating the relative
  *         humidity in percent (0..100.0%).
  */
-float HTU21::readHumidity(void) {
+float GY21::GY21_Humidity(void) 
+{
     /* Prepare the I2C request. */
-    Wire.beginTransmission(HTU21DF_I2CADDR);
-    Wire.write(HTU21DF_READHUM);
+    Wire.beginTransmission(GY21_I2CADDR);
+    Wire.write(GY21_READHUM);
     Wire.endTransmission();
 
     /* Wait a bit for the conversion to complete. */
-    //delay(50);
+    //delay(100);
 
-	while(3 != Wire.requestFrom(HTU21DF_I2CADDR, 3)) // IF THIS GOES, THE CODE GOES DOWN WITH IT
+	while(3 != Wire.requestFrom(GY21_I2CADDR, 3)) // IF THIS GOES, THE CODE GOES DOWN WITH IT
     {
-      delay(0);
+      delay(0); //same as yield for esp
     }
 	
     /* Read the conversion results. */

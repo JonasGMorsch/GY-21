@@ -6,15 +6,16 @@
 # Datatypes (KEYWORD1)
 #######################################
 
-HTU21	KEYWORD1
+GY21	KEYWORD1
+GY-21	KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)
 #######################################
 
 begin	KEYWORD2
-readHumidity	KEYWORD2
-readTemperature	KEYWORD2	
+GY21_Humidity	KEYWORD2
+GY21_Temperature	KEYWORD2	
 
 #######################################
 # Constants (LITERAL1)
