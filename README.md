@@ -13,7 +13,7 @@ These boards use **I2C** to communicate.
 
 https://www.arduino.cc/en/Guide/Libraries
 
-## Sensor Documentation
+## Sensors Documentation
 
 https://github.com/JonasGMorsch/GY-21/blob/master/HTU21.pdf
 
