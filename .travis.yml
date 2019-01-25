@@ -14,4 +14,4 @@ install:
 
 script:
 
-    - platformio ci examples/HTU21_test --lib="." --board=nodemcuv2
+    - platformio ci examples/GY-21_test --lib="." --board=nodemcuv2
