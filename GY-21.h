@@ -1,6 +1,3 @@
-#ifndef _GY-21_H
-#define _GY-21_H
-
 #include "Wire.h"
 #include <Arduino.h>
 
@@ -36,5 +33,3 @@ class GY21
         boolean readData(void);
         float _last_humidity, _last_temp;
 };
-
-#endif _GY-21_H
