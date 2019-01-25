@@ -16,5 +16,7 @@ https://www.arduino.cc/en/Guide/Libraries
 ## Sensor Documentation
 
 https://github.com/JonasGMorsch/GY-21/blob/master/HTU21.pdf
+
 https://github.com/JonasGMorsch/GY-21/blob/master/HTU21.pdf
+
 https://github.com/JonasGMorsch/GY-21/blob/master/SHT21.pdf
