@@ -101,7 +101,7 @@ float GY21::GY21_Humidity(void)
 
 	while(3 != Wire.requestFrom(GY21_I2CADDR, 3)) // IF THIS GOES, THE CODE GOES DOWN WITH IT
     {
-      delay(0); //same as yield for esp
+      delay(10); //same as yield for esp
     }
 	
     /* Read the conversion results. */
