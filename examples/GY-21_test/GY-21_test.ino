@@ -1,5 +1,5 @@
 #include <Wire.h>
-#include <GY-21.h>
+#include <GY21.h>
 
 #define SCL 14 // D5 ON NODEMCU
 #define SDA 12 // D6 ON NODEMCU
@@ -15,8 +15,10 @@ void setup()
 {
   Serial.begin(250000);
   Serial.println("GY-21_test");
+  
+  Wire.begin(SDA, SCL);
 
-  if (!sensor.begin(SDA, SCL))
+  if (!sensor.setup())
   {
     Serial.println("Couldn't find sensor!");
     while (1);
@@ -27,16 +29,16 @@ void loop()
 {
   float temp = sensor.GY21_Temperature();
   float hum = sensor.GY21_Humidity();
-  
-  Serial.print("Temp: "); 
-  Serial.print(temp); 
+
+  Serial.print("Temp: ");
+  Serial.print(temp);
   Serial.print(" C");
-  
-  Serial.print("\t\t");
-  
-  Serial.print("Humidity: "); 
-  Serial.print(hum); 
+
+  Serial.print("\t");
+
+  Serial.print("Humidity: ");
+  Serial.print(hum);
   Serial.println(" \%");
-  
+
   delay(500);
 }
