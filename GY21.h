@@ -1,7 +1,6 @@
 #ifndef GY21_H
 #define GY21_H
 
-#include <Arduino.h>
 #include <Wire.h>
 
 //Default I2C address for the GY-21
@@ -26,7 +25,7 @@ class GY21_
 
     void GY21() {}
 
-    unsigned char setup(WireType &t = Wire)
+    char setup(WireType &t = Wire)
     {
       wire = &t;
 
