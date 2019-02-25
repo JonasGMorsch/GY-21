@@ -1,10 +1,11 @@
-#include <Wire.h>
 #include <GY21.h>
 
+#ifdef ESP8266
 #define SCL 14 // D5 ON NODEMCU
 #define SDA 12 // D6 ON NODEMCU
+#endif
 
-// Connect Vin to 3-5VDC
+// Connect VIN to 3-5VDC
 // Connect GND to ground
 // Connect SCL to I2C clock pin
 // Connect SDA to I2C data pin
@@ -13,16 +14,16 @@ GY21 sensor;
 
 void setup()
 {
-  Serial.begin(250000);
+  Serial.begin(74880);
   Serial.println("GY-21_test");
-  
-  Wire.begin(SDA, SCL);
 
-  if (!sensor.setup())
-  {
-    Serial.println("Couldn't find sensor!");
-    while (1);
-  }
+#ifdef ESP8266
+  Wire.begin(SDA, SCL);
+#else
+  Wire.begin();
+#endif
+
+  sensor.setup();
 }
 
 void loop()
@@ -32,10 +33,7 @@ void loop()
 
   Serial.print("Temp: ");
   Serial.print(temp);
-  Serial.print(" C");
-
-  Serial.print("\t");
-
+  Serial.print(" C    ");
   Serial.print("Humidity: ");
   Serial.print(hum);
   Serial.println(" \%");

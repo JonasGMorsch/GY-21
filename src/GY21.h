@@ -4,19 +4,16 @@
 #include <Wire.h>
 
 //Default I2C address for the GY-21
-#define GY21_I2CADDR    0x40
+#define GY21_I2C_ADDR    0x40
 
 //Read temperature register
-#define GY21_READTEMP   0xF3
+#define GY21_READ_TEMP   0xF3
 
 //Read humidity register
-#define GY21_READHUM    0xF5
+#define GY21_READ_HUM    0xF5
 
-//Read register command
-#define GY21_READREG    0xE7
-
-//Reset command
-#define GY21_RESET      0xFE
+//Time before give up readind new reg values
+#define GY21_TIMEOUT     100
 
 template <typename WireType>
 class GY21_
@@ -25,60 +22,58 @@ class GY21_
 
     void GY21() {}
 
-    char setup(WireType &t = Wire)
+    void setup(WireType &t = Wire)
     {
       wire = &t;
-
-      reset();
-
-      wire->beginTransmission(GY21_I2CADDR);
-      wire->write(GY21_READREG);
-      wire->endTransmission();
-      wire->requestFrom(GY21_I2CADDR, 1);
-
-      return (wire->read() == 0x2); // after reset should be 0x2
-    }
-    
-    void reset(void)
-    {
-      wire->beginTransmission(GY21_I2CADDR);
-      wire->write(GY21_RESET);
-      wire->endTransmission();
-      delay(15);
     }
 
     float GY21_Temperature(void)
     {
-      wire->beginTransmission(GY21_I2CADDR);
-      wire->write(GY21_READTEMP);
-      wire->endTransmission();
-
-      while (3 != wire->requestFrom(GY21_I2CADDR, 3)) // IF THIS GOES, THE CODE GOES DOWN WITH IT
+      uint8_t i = 0;
+      setRegister(GY21_READ_TEMP);
+      while (3 != wire->requestFrom(GY21_I2C_ADDR, 3)) // IF THIS GOES, THE CODE GOES DOWN WITH IT
       {
-        delay(0); //same as yield for esp
+        delay(1);
+        i++;
+        if (i > GY21_TIMEOUT)
+          return _last_temp;
       }
-
-      return ((((wire->read() << 8) | (wire->read() & 0b11111100)) * 175.72f / 65536.0f) - 46.85f);
+      _last_temp = (((wire->read() << 8) | (wire->read() & 0b11111100)) * 0.002681274f - 46.85f);
+      return _last_temp;
     }
 
     float GY21_Humidity(void)
     {
-      wire->beginTransmission(GY21_I2CADDR);
-      wire->write(GY21_READHUM);
-      wire->endTransmission();
-
-      while (3 != wire->requestFrom(GY21_I2CADDR, 3)) // IF THIS GOES, THE CODE GOES DOWN WITH IT
+      uint8_t i = 0;
+      setRegister(GY21_READ_HUM);
+      while (3 != wire->requestFrom(GY21_I2C_ADDR, 3)) // IF THIS GOES, THE CODE GOES DOWN WITH IT
       {
-        delay(0); //same as yield for esp
+        delay(1);
+        i++;
+        if (i > GY21_TIMEOUT)
+          return _last_hum;
       }
-
-      return ((((wire->read() << 8) | (wire->read() & 0b11111100)) * 125.0f / 65536.0f) - 6.0f);
+      _last_hum = (((wire->read() << 8) | (wire->read() & 0b11111100)) * 0.001907349f - 6.f);
+      return _last_hum;
     }
 
   private:
-    boolean readData(void);
-    WireType* wire;
-};
 
+    void setRegister(uint8_t reg)
+    {
+      wire->beginTransmission(GY21_I2C_ADDR);   // Initialize the Tx buffer
+      wire->write(reg);            // Put slave register address in Tx buffer
+      uint8_t error = wire->endTransmission(false);  // Send the Tx buffer, but send a restart to keep connection alive
+      if (error != 0 && error != 7)
+      {
+        Serial.print("I2C ERROR CODE : ");
+        Serial.println(error);
+      }
+    }
+    
+    WireType* wire;
+    float _last_temp;
+    float _last_hum;
+};
 using GY21 = GY21_<TwoWire>;
-#endif GY21_H
+#endif
