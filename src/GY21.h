@@ -22,15 +22,11 @@ class GY21_
 
     void GY21() {}
 
-    void setup(WireType &t = Wire)
+    float GY21_Temperature(WireType &t = Wire)
     {
       wire = &t;
-    }
-
-    float GY21_Temperature(void)
-    {
       uint8_t i = 0;
-      setRegister(GY21_READ_TEMP);
+      this->setRegister(GY21_READ_TEMP);
       while (3 != wire->requestFrom(GY21_I2C_ADDR, 3)) // IF THIS GOES, THE CODE GOES DOWN WITH IT
       {
         delay(1);
@@ -42,10 +38,11 @@ class GY21_
       return _last_temp;
     }
 
-    float GY21_Humidity(void)
+    float GY21_Humidity(WireType &t = Wire)
     {
+      wire = &t;
       uint8_t i = 0;
-      setRegister(GY21_READ_HUM);
+      this->setRegister(GY21_READ_HUM);
       while (3 != wire->requestFrom(GY21_I2C_ADDR, 3)) // IF THIS GOES, THE CODE GOES DOWN WITH IT
       {
         delay(1);

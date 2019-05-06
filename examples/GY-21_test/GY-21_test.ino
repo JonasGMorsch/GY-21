@@ -23,7 +23,6 @@ void setup()
   Wire.begin();
 #endif
 
-  sensor.setup();
 }
 
 void loop()
@@ -33,10 +32,10 @@ void loop()
 
   Serial.print("Temp: ");
   Serial.print(temp);
-  Serial.print(" C    ");
+  Serial.print("°C    ");
   Serial.print("Humidity: ");
   Serial.print(hum);
-  Serial.println(" \%");
+  Serial.println("\%");
 
   delay(500);
 }
