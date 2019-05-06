@@ -15,6 +15,8 @@ https://www.arduino.cc/en/Guide/Libraries
 
 ## How to Use
 
+Go to [Example](https://github.com/JonasGMorsch/GY-21/blob/master/examples/GY-21_test/GY-21_test.ino) or:
+
 1 - ```#include <GY21.h>```
 
 2 - make an object, for example: ```GY21 sensor;```
