@@ -23,7 +23,7 @@ https://www.arduino.cc/en/Guide/Libraries
 
 4 - call ```sensor.GY21_Temperature();``` or ```sensor.GY21_Humidity();``` to get the values
 
-#### Be Aware: It takes ~55ms to get the values
+**Be Aware:**  It takes ~55ms to get the values
 
 
 ## Sensors Documentation
