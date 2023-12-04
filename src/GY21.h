@@ -69,8 +69,8 @@ class GY21_
     }
     
     WireType* wire;
-    float _last_temp;
-    float _last_hum;
+    float _last_temp = NAN;
+    float _last_hum = NAN;
 };
 using GY21 = GY21_<TwoWire>;
 #endif
