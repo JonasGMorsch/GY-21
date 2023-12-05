@@ -1,17 +1,20 @@
 language: python
-
 python:
+    - "3.9"
 
-    - "2.7"
-
-
+# Cache PlatformIO packages using Travis CI container-based infrastructure
+sudo: false
+cache:
+    directories:
+        - "~/.platformio"
+        - $HOME/.cache/pip
+		
+env:
+    - PLATFORMIO_CI_SRC=examples/GY-21_test/GY-21_test.ino
 
 install:
-
-    - python -c "$(curl -fsSL https://raw.githubusercontent.com/platformio/platformio/master/scripts/get-platformio.py)"
-
-
+    - pip install -U platformio
+    - pio update
 
 script:
-
-    - platformio ci examples/GY-21_test --lib="." --board=nodemcuv2
+    - pio ci --lib="." --board=uno --board=nodemcuv2
